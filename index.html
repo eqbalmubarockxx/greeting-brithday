@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 23rd Birthday Rhindy!</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --main-bg-color: #ffe6f2;
+            --accent-color: #ff66b2;
+            --secondary-color: #b3e0ff;
+            --text-color: #8a4f7d;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--main-bg-color);
+            background-image: linear-gradient(to bottom right, #ffe6f2, #f2e6ff, #e6f2ff);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .section {
+            min-height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .section.active {
+            display: flex;
+        }
+        
+        .header {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .message-card {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin: 20px 0;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid var(--accent-color);
+        }
+        
+        .message-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .message-card::before {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50px;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            transform: rotate(45deg);
+            border-right: 2px solid var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            z-index: -1;
+        }
+        
+        .button-next {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 30px;
+            font-size: 18px;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(255, 102, 178, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .button-next:hover {
+            transform: scale(1.05);
+            box-shadow: 0 7px 20px rgba(255, 102, 178, 0.6);
+        }
+        
+        .button-next:active {
+            transform: scale(0.95);
+        }
+        
+        .button-next::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+        
+        .button-next:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+        
+        .emoji {
+            font-size: 24px;
+            margin: 0 5px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background-color: #ff66b2;
+            border-radius: 50%;
+            bottom: -100px;
+            animation: float 15s linear infinite;
+            opacity: 0.8;
+        }
+        
+        .balloon::before {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 15px;
+            background-color: #ff66b2;
+            bottom: -10px;
+            left: 15px;
+            border-radius: 40%;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-color);
+            bottom: -20px;
+            animation: confetti-fall 10s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); bottom: -100px; }
+            50% { transform: translateY(-50vh) rotate(10deg); }
+            100% { transform: translateY(-100vh) rotate(0deg); opacity: 0; }
+        }
+        
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); bottom: -20px; }
+            50% { transform: translateY(-50vh) rotate(360deg); }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--accent-color);
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+            margin: 0 auto;
+            display: inline-block;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-color) }
+        }
+        
+        .final-message {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--text-color);
+            text-align: center;
+            margin-top: 30px;
+            background: linear-gradient(45deg, #ff66b2, #9966ff, #66b3ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 3s ease infinite;
+            background-size: 200% 200%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        .heart {
+            display: inline-block;
+            color: red;
+            animation: heartbeat 1s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .cake {
+            font-size: 80px;
+            margin: 20px 0;
+            text-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            animation: wobble 2s infinite;
+        }
+        
+        @keyframes wobble {
+            0% { transform: translateX(0); }
+            15% { transform: translateX(-10px) rotate(-5deg); }
+            30% { transform: translateX(8px) rotate(5deg); }
+            45% { transform: translateX(-6px) rotate(-3deg); }
+            60% { transform: translateX(6px) rotate(3deg); }
+            75% { transform: translateX(-4px) rotate(-1deg); }
+            100% { transform: translateX(0); }
+        }
+        
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+        
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #fff;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            margin: 20px auto;
+            border: 5px solid var(--accent-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .photo-text {
+            color: var(--accent-color);
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .message-card {
+                padding: 15px;
+            }
+            
+            .final-message {
+                font-size: 24px;
+            }
+            
+            .button-next {
+                font-size: 16px;
+                padding: 10px 25px;
+            }
+            
+            .cake {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Musik Background -->
+    <audio id="bgMusic" loop>
+        <source src="https://cdnjs.cloudflare.com/ajax/libs/music-fns/0.1.3/happy-birthday.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Tombol kontrol musik -->
+    <div class="music-control" onclick="toggleMusic()">
+        <i id="musicIcon" class="fas fa-volume-up"></i>
+    </div>
+    
+    <!-- Section 1: Intro -->
+    <section id="section1" class="section active animate__animated animate__fadeIn">
+        <div class="header">
+            <h1 class="typing">Happy 23rd Birthday Rhindy!</h1>
+        </div>
+        <div class="photo-frame animate__animated animate__zoomIn">
+            <div class="photo-text">RHINDY <span class="heart">❤️</span></div>
+        </div>
+        <div class="message-card animate__animated animate__bounceIn">
+            <p>Hai Rhindy yang cantik! <span class="emoji">😍</span></p>
+            <p>Selamat ulang tahun yang ke-23! Hari spesial untuk orang spesial di hatiku.</p>
+            <p>Aku sudah menyiapkan sesuatu yang khusus untukmu. Klik tombol di bawah ya!</p>
+        </div>
+        <button class="button-next animate__animated animate__pulse animate__infinite" onclick="nextSection(1)">
+            Mulai Membaca <i class="fas fa-heart"></i>
+        </button>
+    </section>
+    
+    <!-- Section 2 -->
+    <section id="section2" class="section">
+        <div class="message-card animate__animated">
+            <p><span class="emoji">🌟</span> 23 tahun yang lalu, dunia menjadi tempat yang lebih indah karena hadirnya kamu...</p>
+            <p>Terima kasih telah mewarnai hari-hariku dengan senyummu yang selalu membuatku jatuh cinta lagi dan lagi.</p>
+        </div>
+        <div class="cake">🎂</div>
+        <button class="button-next" onclick="nextSection(2)">
+            Klik Lagi Ya Sayang <i class="fas fa-heart"></i>
+        </button>
+    </section>
+    
+    <!-- Section 3 -->
+    <section id="section3" class="section">
+        <div class="message-card animate__animated">
+            <p><span class="emoji">💫</span> Tahun ini adalah tahun spesialmu, di umur 23...</p>
+            <p>Kamu semakin dewasa, semakin cantik, dan semakin membuatku terpesona setiap harinya.</p>
+            <p>Aku bersyukur bisa menjadi bagian dari perjalanan hidupmu.</p>
+        </div>
+        <button class="button-next" onclick="nextSection(3)">
+            Lanjut Baca Lagi <i class="fas fa-heart-circle-plus"></i>
+        </button>
+    </section>
+    
+    <!-- Section 4 -->
+    <section id="section4" class="section">
+        <div class="message-card animate__animated">
+            <p><span class="emoji">💝</span> 3 Hal yang Aku Suka dari Kamu:</p>
+            <ol>
+                <li>Senyummu yang selalu mencerahkan hariku</li>
+                <li>Kebaikan hatimu yang tidak pernah berubah</li>
+                <li>Cara kamu tertawa yang selalu membuatku ikut bahagia</li>
+            </ol>
+            <p>Dan masih banyak lagi yang tidak bisa aku tuliskan satu per satu...</p>
+        </div>
+        <button class="button-next" onclick="nextSection(4)">
+            Masih Ada Lagi Lho <i class="fas fa-gift"></i>
+        </button>
+    </section>
+    
+    <!-- Section 5 -->
+    <section id="section5" class="section">
+        <div class="message-card animate__animated">
+            <p><span class="emoji">✨</span> 23 Harapanku Untukmu:</p>
+            <p>Semoga kamu selalu sehat, bahagia, dan sukses dalam semua yang kamu impikan.</p>
+            <p>Semoga tahun ini membawa lebih banyak kebahagiaan dan kesuksesan untukmu.</p>
+            <p>Dan semoga kita selalu bersama, melewati setiap momen indah dalam hidup kita.</p>
+        </div>
+        <button class="button-next" onclick="nextSection(5)">
+            Yang Terakhir Nih <i class="fas fa-star"></i>
+        </button>
+    </section>
+    
+    <!-- Section 6: Final -->
+    <section id="section6" class="section">
+        <div class="header animate__animated">
+            <h1 class="final-message">Selamat Ulang Tahun Rhindy yang ke-23!</h1>
+        </div>
+        <div class="message-card animate__animated">
+            <p>Terima kasih sudah menjadi bagian terindah dalam hidupku.</p>
+            <p>Aku mencintaimu dengan segenap hatiku! <span class="heart">❤️</span></p>
+            <p>Semoga hari ulang tahunmu penuh dengan kebahagiaan, tawa, dan cinta.</p>
+            <p style="text-align: right; font-weight: bold; margin-top: 20px;">- Yang selalu mencintaimu</p>
+        </div>
+        <button class="button-next" onclick="restartPage()">
+            Mulai Dari Awal <i class="fas fa-redo"></i>
+        </button>
+    </section>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Generate balloons and confetti
+        function generateElements() {
+            const colors = ["#ff66b2", "#ff99cc", "#cc99ff", "#99ccff", "#ffcc99", "#99ffcc"];
+            
+            // Generate balloons
+            for (let i = 0; i < 15; i++) {
+                let balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = Math.random() * 100 + 'vw';
+                balloon.style.bottom = Math.random() * -100 + 'px';
+                balloon.style.animationDelay = Math.random() * 5 + 's';
+                balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(balloon);
+            }
+            
+            // Generate confetti
+            for (let i = 0; i < 50; i++) {
+                let confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.bottom = Math.random() * -100 + 'px';
+                confetti.style.animationDelay = Math.random() * 10 + 's';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                document.body.appendChild(confetti);
+            }
+        }
+        
+        // Switch between sections
+        function nextSection(currentSection) {
+            const current = document.getElementById(`section${currentSection}`);
+            const next = document.getElementById(`section${currentSection + 1}`);
+            
+            current.classList.remove('animate__fadeIn');
+            current.classList.add('animate__fadeOut');
+            
+            setTimeout(() => {
+                current.classList.remove('active');
+                current.classList.remove('animate__fadeOut');
+                next.classList.add('active', 'animate__fadeIn');
+                
+                // Add animations to elements in the next section
+                const cards = next.querySelectorAll('.message-card');
+                cards.forEach(card => {
+                    card.classList.add('animate__bounceIn');
+                });
+                
+                const headers = next.querySelectorAll('.header');
+                headers.forEach(header => {
+                    header.classList.add('animate__tada');
+                });
+            }, 500);
+        }
+        
+        // Restart the page
+        function restartPage() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const firstSection = document.getElementById('section1');
+            firstSection.classList.add('active', 'animate__fadeIn');
+        }
+        
+        // Toggle music
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            const icon = document.getElementById('musicIcon');
+            
+            if (music.paused) {
+                music.play();
+                icon.className = 'fas fa-volume-up';
+            } else {
+                music.pause();
+                icon.className = 'fas fa-volume-mute';
+            }
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            generateElements();
+            
+            // Try to autoplay music (may be blocked by browser)
+            const music = document.getElementById('bgMusic');
+            const playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Autoplay was prevented by browser. Click the music button to play.");
+                });
+            }
+            
+            // Apply typing animation to headings
+            const headings = document.querySelectorAll('.typing');
+            headings.forEach(heading => {
+                const textWidth = heading.offsetWidth;
+                heading.style.width = '0';
+                setTimeout(() => {
+                    heading.style.width = textWidth + 'px';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
