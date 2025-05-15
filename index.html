@@ -40,13 +40,42 @@
             display: flex;
         }
         
-        .header {
-            text-align: center;
-            color: var(--text-color);
-            margin-bottom: 30px;
-            font-weight: bold;
-            position: relative;
-        }
+        :root {
+  --text-color: #fff; /* atau ganti sesuai tema kamu */
+}
+
+/* Container styling */
+.header {
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 30px;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Typewriter effect */
+.typing {
+  display: inline-block;
+  white-space: nowrap;
+  border-right: 2px solid var(--text-color);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 2em;
+  animation: typing 4s steps(30, end), blink 0.75s step-end infinite;
+}
+
+/* Typing keyframes */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Cursor blinking */
+@keyframes blink {
+  0%, 100% { border-color: transparent }
+  50% { border-color: var(--text-color) }
+}
+
         
         .message-card {
             background-color: white;
